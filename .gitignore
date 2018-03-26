@@ -2,6 +2,7 @@
 node_modules
 dist
 /fe-b
+/server/server/config/index.js
 
 # local env files
 .env.local
