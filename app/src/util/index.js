@@ -14,3 +14,13 @@ export const urlParse = (url) => {
   }
   return obj
 }
+
+export const os = (() => {
+  const u = navigator.userAgent
+  const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1
+  const isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+  return {
+    isAndroid,
+    isIOS
+  }
+})()
