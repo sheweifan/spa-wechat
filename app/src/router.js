@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import axios from 'axios'
 import Router from 'vue-router'
 import share from '@/container/share.vue'
 import home from '@/container/home.vue'
@@ -21,23 +20,38 @@ const router = new Router({
   mode: 'history'
 })
 
-// router.beforeEach((to, from, next) => {
-//   const url = window.location.href
-//   const encodeUrl = encodeURIComponent(url.split('#')[0])
-//   const { code } = urlParse(url)
-//   if (!code) {
-//     window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${''}&redirect_uri=${encodeUrl}&response_type=code&scope=snsapi_userinfo`
-//   } else {
-//     axios.get('http://2bja3s.natappfree.cc/wechat-getUserByCode', {
-//       params: {
-//         code
-//       }
-//     })
-//       .then(data => {
-//         const user = data.data.data
-//         store.dispatch('updateUserinfo', user)
-//       })
-//   }
-// })
+const redirect = () => {
+  const url = window.location.href.split('#')[0]
+  const urlParmas = urlParse(url)
+  let query = ''
+  for (let key in urlParmas) {
+    if (key !== 'state' && key !== 'code') {
+      query += `&${key}=${urlParmas[key]}`
+    }
+  }
+  query = query.replace('&', '?')
+  window.sessionStorage.setItem('isLogined', true)
+  store.dispatch('redirect', {
+    to: url.split('?')[0] + query
+  })
+}
+
+router.beforeEach((to, from, next) => {
+  const url = window.location.href.split('#')[0]
+  const { code } = urlParse(url)
+  const isLogined = window.sessionStorage.getItem('isLogined')
+  const { userinfo } = store.state
+  store.dispatch('markEntry', url)
+  if (!isLogined || (!code && userinfo == null)) {
+    redirect()
+  } else {
+    !userinfo && store.dispatch('updateUserinfo', code).catch(redirect)
+    next()
+  }
+})
+
+router.afterEach((to, from) => {
+
+})
 
 export default router
