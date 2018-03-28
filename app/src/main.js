@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
+import Wechat from '@/util/wechat'
+
+Vue.use(Wechat)
 
 Vue.config.productionTip = false
 
