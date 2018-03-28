@@ -1,18 +1,16 @@
 
 import request from 'request-promise';
 
-// https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code 
+// https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
 const prefix = 'https://api.weixin.qq.com/sns/';
 const api = {
   // ?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect
   authorize: 'https://open.weixin.qq.com/connect/oauth2/authorize?',
-  // ?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code 
+  // ?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
   accessToken: prefix + 'oauth2/access_token?',
   // ?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
   userInfo: prefix + 'userinfo?'
 }
-
-
 
 class WechatOAuth{
 
@@ -49,7 +47,7 @@ class WechatOAuth{
     const url = `${api.accessToken}appid=${this.appID}&secret=${this.appSecret}&code=${code}&grant_type=authorization_code`;
 
     const data = await this.request({ url })
-  
+
     return data;
   }
 
