@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -13,9 +13,6 @@ export default {
     HelloWorld
   },
   created () {
-    this.$store.dispatch('updateUserinfo', {
-      username: 'fuck'
-    })
   }
 }
 </script>
