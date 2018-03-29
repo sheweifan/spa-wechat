@@ -25,7 +25,7 @@ const redirect = () => {
   const urlParmas = urlParse(url)
   let query = ''
   for (let key in urlParmas) {
-    if (key !== 'state' && key !== 'code') {
+    if (key !== 'state' && key !== 'code' && urlParmas.hasOwnProperty(key)) {
       query += `&${key}=${urlParmas[key]}`
     }
   }
