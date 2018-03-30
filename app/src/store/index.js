@@ -8,7 +8,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    userinfo: null
+    userinfo: null,
+    entry: null
   },
   actions,
   getters,
