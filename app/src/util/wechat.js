@@ -45,9 +45,6 @@ Wechat.install = (Vue, options) => {
       resolve()
     }
   })
-  wx.error((res) => {
-    console.log(res)
-  })
 
   Vue.prototype.wxShare = (config) => {
     wxConfig().then(() => {
