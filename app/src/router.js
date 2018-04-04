@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import share from '@/container/share.vue'
+import share2 from '@/container/share2.vue'
 import home from '@/container/home.vue'
 import store from '@/store'
 import { urlParse } from '@/util'
@@ -15,6 +16,10 @@ const router = new Router({
     {
       path: '/share',
       component: share
+    },
+    {
+      path: '/share2',
+      component: share2
     }
   ],
   mode: 'history'
@@ -48,10 +53,6 @@ router.beforeEach((to, from, next) => {
     !userinfo && store.dispatch('updateUserinfo', code).catch(redirect)
     next()
   }
-})
-
-router.afterEach((to, from) => {
-
 })
 
 export default router
