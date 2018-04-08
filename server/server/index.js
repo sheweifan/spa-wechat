@@ -2,30 +2,15 @@ import Koa from 'koa'
 // import { Nuxt, Builder } from 'nuxt'
 import { resolve } from 'path'
 import _ from 'lodash'
-import cors from 'koa2-cors'
 
 // let config = require('../nuxt.config.js')
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
-const MIDDLEWARES = ['database', 'router']
+const MIDDLEWARES = ['cors', 'database', 'router']
 
 class Server {
   constructor() {
     this.app = new Koa()
-    this.app.use(cors({
-      origin: function (ctx) {
-          return '*'
-          // if (ctx.url === '/test') {
-          //     return "*"; // 允许来自所有域名请求
-          // }
-          // return 'http://localhost:8080'; / 这样就能只允许 http://localhost:8080 这个域名的请求了
-      },
-      exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
-      maxAge: 5,
-      credentials: true,
-      allowMethods: ['GET', 'POST', 'DELETE'],
-      allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
-    }))
     this.useMiddleWare(this.app, MIDDLEWARES);
   }
   useMiddleWare(app, arr) {
@@ -66,7 +51,7 @@ class Server {
     //     })
     //   })
     // })
-    
+
     app.listen(port, host)
     console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
 
